@@ -60,6 +60,7 @@ public class Encryptor {
 			out = xOR( out, key, i );
 		
 		}
+		// Verkürzter letzter Aufruf ohne bitPerm()
 		out = sBox( out );
 		out = xOR( out, key, 4 );
 		
@@ -75,6 +76,7 @@ public class Encryptor {
 		
 		byte[] out = new byte[4];
 
+		// Iterate over byte-array with the corresponding subset from the key, which gets incremented with round.
 		for (int i = 0; i < out.length ; i++ ) {
 
 			out[i] = (byte) (in[i] ^ toXOR[ i + round ]);
