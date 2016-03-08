@@ -17,59 +17,11 @@ package main;
  */
 
 public class KrysiBruteForce {
-	
-	final static byte x1 = 0x1; // 00000001
-	final static byte x2 = 0x2; // 00000010
-	final static byte x4 = 0x4; // 00000100
-	final static byte x8 = 0x8; // 00001000
-	
-	public static void main(String[] args) {
-
-		// XOR - Beispiel
-		byte x = 0x6;
-		printByte(x);
 		
-		byte xNew = (byte) ( x ^ x4 );
-		printByte(xNew);
+	public static void main( String[] args ) {
+
+		Breaker b = new Breaker();
 			
 	}
-	
-	/**
-	 * Eingabe: 4x4 Bits rein
-	 * Ausgabe: 4x4 Bits raus
-	 */
-	public static byte[] xOR ( byte[] in ) {
-		
-		return in;
-		
-	}
 
-	
-	/**
-	 * Eingabe: 4x4 Bits rein
-	 * Ausgabe: 4x4 Bits raus
-	 */
-	public static byte[] sBox ( byte[] in ) {
-		
-		return in;
-		
-	}
-
-	/**
-	 * Eingabe: 4x4 Bits rein
-	 * Ausgabe: 4x4 Bits raus
-	 */
-	public static byte[] bitPerm (  byte[] in  ) {
-		
-		return in;
-		
-	}
-	
-	public static void printByte ( byte b ) {
-		
-		String s1 = String.format("%4s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
-		System.out.println(s1); // 1001
-		
-	}
-	
 }
