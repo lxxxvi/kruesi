@@ -1,6 +1,6 @@
 package main;
 
-public class Breaker {
+public class Encryptor {
 
 	final static byte x1 = 0x1; // 00000001
 	final static byte x2 = 0x2; // 00000010
@@ -9,7 +9,7 @@ public class Breaker {
 
 	Dict dict;
 
-	public Breaker () {
+	public Encryptor () {
 
 		// XOR - Beispiel
 		byte x = 0xF;
@@ -36,7 +36,7 @@ public class Breaker {
 	 * Eingabe: Byte-Array (4x4 Bits)
 	 * Ausgabe: Byte-Array (4x4 Bits)
 	 */
-	public byte[] xOR ( byte[] in, byte[]toXOR ) {
+	public byte[] xOR ( byte[] in, byte[] toXOR ) {
 		
 		byte[] out = new byte[4];
 

@@ -20,7 +20,7 @@ public class KrysiBruteForce {
 		
 	public static void main( String[] args ) {
 
-		Breaker b = new Breaker();
+		Encryptor b = new Encryptor();
 			
 	}
 
