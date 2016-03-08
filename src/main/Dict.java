@@ -11,6 +11,7 @@ import java.util.Map;
 *     Get yourself a Dictionary "Dict"    :   Dict dict = new Dict();
 *     Lookup sBox                         :   dict.sBox((byte) value);
 *     Lookup sInv                         :   dict.sInv((byte) value);
+*     Bipermutation                       :   dict.biperm((short) value);
 *
 * */
 
@@ -18,6 +19,11 @@ public class Dict {
 
   private final HashMap<Byte, Byte> sBoxMap;
   private final HashMap<Byte, Byte> sInvMap;
+
+  private static final byte[] bipermFrom =
+    {  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 };
+  private static final byte[] bipermTo   =
+    {  0,  4,  8, 12,  1,  5,  9, 13,  2,  6, 10, 14,  3,  7, 11, 15 };
 
   public Dict() {
     /* setup */
@@ -38,6 +44,7 @@ public class Dict {
     template.put("D", "9"); // 13
     template.put("E", "0"); // 14
     template.put("F", "7"); // 15
+
 
     /* build lookup hashs */
     sBoxMap = new HashMap<Byte, Byte>();
@@ -66,6 +73,18 @@ public class Dict {
 
   public byte sInv(byte input) {
     return sInvMap.get(input);
+  }
+
+  // https://gist.github.com/Viciu88/0ae7686a396bbe7fdb3b
+  public int biperm(short value)
+  {
+    int newValue = 0;
+    for (byte i = 0; i < bipermTo.length; i++)
+    {
+      int bit = (value >> bipermFrom[i]) & 1;
+      newValue |= bit << bipermTo[i];
+    }
+    return newValue;
   }
 
 }
