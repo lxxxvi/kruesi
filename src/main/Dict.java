@@ -9,15 +9,15 @@ import java.util.Map;
 *     USAGE:
 *
 *     Get yourself a Dictionary "Dict"    :   Dict dict = new Dict();
-*     Lookup sBox                         :   dict.sBox((short) value);
-*     Lookup sInv                         :   dict.sInv((short) value);
+*     Lookup sBox                         :   dict.sBox((byte) value);
+*     Lookup sInv                         :   dict.sInv((byte) value);
 *
 * */
 
 public class Dict {
 
-  private final HashMap<Short, Short> sBoxMap;
-  private final HashMap<Short, Short> sInvMap;
+  private final HashMap<Byte, Byte> sBoxMap;
+  private final HashMap<Byte, Byte> sInvMap;
 
   public Dict() {
     /* setup */
@@ -40,15 +40,15 @@ public class Dict {
     template.put("F", "7"); // 15
 
     /* build lookup hashs */
-    sBoxMap = new HashMap<Short, Short>();
-    sInvMap = new HashMap<Short, Short>();
+    sBoxMap = new HashMap<Byte, Byte>();
+    sInvMap = new HashMap<Byte, Byte>();
 
     Iterator it = template.entrySet().iterator();
     while (it.hasNext()) {
       Map.Entry pair = (Map.Entry)it.next();
 
-      short from = (short) getIntFromHex(pair.getKey().toString());
-      short to   = (short) getIntFromHex(pair.getValue().toString());
+      byte from = getIntFromHex(pair.getKey().toString());
+      byte to   = getIntFromHex(pair.getValue().toString());
 
       sBoxMap.put(from , to);
       sInvMap.put(to , from);
@@ -56,15 +56,15 @@ public class Dict {
 
   }
 
-  public int getIntFromHex(String hex) {
-    return Integer.parseInt(hex, 16);         // http://stackoverflow.com/questions/5886619/hexadecimal-to-integer-in-java
+  public byte getIntFromHex(String hex) {
+    return (byte) Integer.parseInt(hex, 16);         // http://stackoverflow.com/questions/5886619/hexadecimal-to-integer-in-java
   }
 
-  public short sBox(short input) {
+  public byte sBox(byte input) {
     return sBoxMap.get(input);
   }
 
-  public short sInv(short input) {
+  public byte sInv(byte input) {
     return sInvMap.get(input);
   }
 
