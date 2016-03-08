@@ -24,10 +24,14 @@ public class KrysiBruteForce {
 	final static byte x8 = 0x8; // 00001000
 	
 	public static void main(String[] args) {
-		
 
-		printByte(x4);
+		// XOR - Beispiel
+		byte x = 0x6;
+		printByte(x);
 		
+		byte xNew = (byte) ( x ^ x4 );
+		printByte(xNew);
+			
 	}
 	
 	/**
