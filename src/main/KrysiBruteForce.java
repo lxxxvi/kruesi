@@ -20,8 +20,20 @@ public class KrysiBruteForce {
 		
 	public static void main( String[] args ) {
 
-		Encryptor b = new Encryptor();
-			
+		Encryptor e = new Encryptor();
+
+		// Verification
+		byte[] plainText = new byte[] { 1, 2, 8, 15}; 
+		byte[] key = new byte[] { 1, 1, 2, 8, 8, 12, 0, 0};
+		byte[] cypher = e.encryptByteArray( plainText, key );
+
+		System.out.println("\nPlaintext");
+		e.printByteArray( plainText );
+		System.out.println("\nKey");
+		e.printByteArray( key );
+		System.out.println("\nCypher");
+		e.printByteArray( cypher );
+	
 	}
 
 }
