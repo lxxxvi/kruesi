@@ -27,8 +27,6 @@ public class KrysiBruteForce {
 		Encryptor e = new Encryptor();
 
 		// Verification
-
-		
 		
 		byte[] testPlainText = new byte[] { 1, 2, 8, 15 };
 		byte[] testKey = new byte[] { 1, 1, 2, 8, 8, 12, 0, 0 };
@@ -103,8 +101,8 @@ public class KrysiBruteForce {
 
 						long endTime = System.nanoTime();
 						long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-						System.out.println("It took " + (duration)/1000000000/60 + "minutes to find the key.");
-
+						System.out.println("It took " + (duration)/1000000000/60 + " minutes to find the key.");
+						System.out.println("Number of keys tried: " + Math.abs( Integer.MAX_VALUE - Integer.MIN_VALUE - i - Integer.MIN_VALUE ) );
 						System.exit(1);
 						
 					}

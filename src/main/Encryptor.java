@@ -190,7 +190,7 @@ public class Encryptor {
 	public void printByte ( byte b ) {
 		
 		String s1 = String.format("%4s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
-		System.out.print(s1 + ","); // 1001
+		System.out.print( s1 ); // 1001
 		
 	}
 	
@@ -199,8 +199,14 @@ public class Encryptor {
 		for ( int i = 0; i < b.length ; i++) {
 		
 			printByte( b[i] );
+			if ( i != b.length - 1) {
+				
+				System.out.print(",");
+				
+			}
 
 		}
+		System.out.println();
 		
 	}
 	
