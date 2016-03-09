@@ -2,45 +2,11 @@ package main;
 
 public class Encryptor {
 
-	final static byte x1 = 0x1; // 00000001
-	final static byte x2 = 0x2; // 00000010
-	final static byte x4 = 0x4; // 00000100
-	final static byte x8 = 0x8; // 00001000
+	Dict dict = new Dict();
 
-	Dict dict;
+	// Konstruktor
+	public Encryptor () {}
 
-	public Encryptor () {
-
-		// XOR - Beispiel
-		byte x = 0xF;
-		printByte(x);
-		
-		byte xNew = (byte) ( x & 0x8 );
-		printByte(xNew);
-		
-		// Small tests
-		
-		byte[] input = new byte[] {0, 1, 2, 4}; 
-		byte[] toXOR = new byte[] {0, 1, 4, 8};
-		byte[] res = xOR( input, toXOR, 0 );
-		System.out.println();
-		printByteArray( res );
-		
-		byte[] testBitPermInput = new byte[] {0, 0, 0, 15}; 
-		System.out.println();
-		System.out.println("BitPermTest: input");
-		printByteArray( testBitPermInput );
-		byte[] bitPermTest = bitPerm( testBitPermInput );
-		System.out.println();
-		System.out.println("BitPermTest: output");
-		printByteArray( bitPermTest );
-		
-
-		// SETUP
-		
-		dict = new Dict();
-		
-	}
 	/**
 	 * 
 	 * @param plainText Byte-Array length 4 (16-bit)
