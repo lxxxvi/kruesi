@@ -115,7 +115,14 @@ public class Encryptor {
 		
 		byte[] out = new byte[4];
 
-		// First 4 Bits  (in[0])
+		// Vorgehen:
+		// 1. Gewünschtes Bit mit einer Bitmaske extrahieren => einzelnes bit innerhalb eines byte
+		// 2. Bit mit einer OR-Verknüpfung im entsprechenden byte 
+		//    und an der korrekten Position platzieren.
+		//    (zum Verschieben wird << und >> verwendet)
+
+		//==========================
+		// First 4 Bits  (in[0])		
 		
 		// 0 => 0
 		byte bit = (byte) ( in[0] & 0x8 );
@@ -133,7 +140,8 @@ public class Encryptor {
 		bit = (byte) ( in[0] & 0x1);
 		out[3] = (byte) (out[3] | bit<<3);
 
-		// Second 4 bits (in[1])
+		//==========================
+		// Next 4 bits (in[1])
 
 		// 4 => 1
 		bit = (byte) ( in[1] & 0x8 );
@@ -151,7 +159,8 @@ public class Encryptor {
 		bit = (byte) ( in[1] & 0x1);
 		out[3] = (byte) (out[3] | bit<<2);
 		
-		// Third 4 bits (in[2])
+		//==========================
+		// Next 4 bits (in[2])
 
 		// 8 => 2
 		bit = (byte) ( in[2] & 0x8 );
@@ -169,7 +178,8 @@ public class Encryptor {
 		bit = (byte) ( in[2] & 0x1);
 		out[3] = (byte) (out[3] | bit<<1);
 		
-		// Fourth 4 bits (in[3])
+		//==========================
+		// Next 4 bits (in[3])
 
 		// 12 => 3
 		bit = (byte) ( in[3] & 0x8 );
