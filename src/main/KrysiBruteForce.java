@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 /*
  * r = Runden = 4
  * 
@@ -23,16 +25,22 @@ public class KrysiBruteForce {
 		Encryptor e = new Encryptor();
 
 		// Verification
+
 		byte[] plainText = new byte[] { 1, 2, 8, 15}; 
 		byte[] key = new byte[] { 1, 1, 2, 8, 8, 12, 0, 0};
-		byte[] cypher = e.encryptByteArray( plainText, key );
-
-		System.out.println("\nPlaintext");
-		e.printByteArray( plainText );
-		System.out.println("\nKey");
-		e.printByteArray( key );
-		System.out.println("\nCypher");
-		e.printByteArray( cypher );
+		byte[] cipher = e.encryptByteArray( plainText, key );
+		
+		byte[] correctCipher = new byte[] { 10, 14, 11, 4};
+		if ( java.util.Arrays.equals( cipher, correctCipher ) ) {
+		
+			System.out.println("Encryption works.");
+		
+		} else {
+	
+			System.out.println("Encryption FAILS");
+			return;
+			
+		}
 	
 	}
 
