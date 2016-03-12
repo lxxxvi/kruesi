@@ -75,7 +75,7 @@ public class KrysiBruteForce {
 
 		long startTime = System.nanoTime();
 
-		for ( int i = Integer.MIN_VALUE; i <= Integer.MAX_VALUE; i++ ) {
+		for ( int i = Integer.MIN_VALUE; i < Integer.MAX_VALUE; i++ ) {
 
 			key = e.intToByteArray( key, i );
 			//key = new byte[]{3, 10, 9, 4, 13, 6, 3, 15}; // Working Key: 0011 1010 1001 0100 1101 0110 0011 1111
