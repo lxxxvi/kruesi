@@ -3,6 +3,7 @@ package main;
 public class Encryptor {
 
 	Dict dict = new Dict();
+    Utilities utilies = new Utilities();
 
 	// Konstruktor
 	public Encryptor () {}
@@ -18,40 +19,21 @@ public class Encryptor {
 		byte[] out = plainText;
 
 		// XOR - initial round
-		out = xOR( out, key, 0 );
+		out = utilies.xOR( out, key, 0 );
 		for (int i = 1 ; i < 4; i++ ) {
 		
 			out = sBox( out );
 			out = bitPerm( out );
-			out = xOR( out, key, i );
+			out = utilies.xOR( out, key, i );
 		
 		}
 		// Verkürzter letzter Aufruf ohne bitPerm()
 		out = sBox( out );
-		out = xOR( out, key, 4 );
+		out = utilies.xOR( out, key, 4 );
 		
 		return out;		
 		
 	}
-		
-	/**
-	 * Eingabe: Byte-Array (4x4 Bits)
-	 * Ausgabe: Byte-Array (4x4 Bits)
-	 */
-	private byte[] xOR ( byte[] in, byte[] toXOR, int round ) {
-		
-		byte[] out = new byte[4];
-
-		// Iterate over byte-array with the corresponding subset from the key, which gets incremented with round.
-		for (int i = 0; i < out.length ; i++ ) {
-
-			out[i] = (byte) (in[i] ^ toXOR[ i + round ]);
-			
-		}
-		return out;
-		
-	}
-
 	
 	/**
 	 * Eingabe: Byte-Array (4x4 Bits)
