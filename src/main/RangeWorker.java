@@ -8,12 +8,14 @@ public class RangeWorker implements Runnable {
   private final BlockingQueue<Range> queue;
   private final PlainCipherList plainCipherList;
   private final Encryptor encryptor;
+  private final Utilities utilities;
 
-  public RangeWorker(ThreadWatcher threadWatcher, BlockingQueue<Range> queue, Encryptor encryptor, PlainCipherList plainCipherList) {
+  public RangeWorker(ThreadWatcher threadWatcher, BlockingQueue<Range> queue, Encryptor encryptor, PlainCipherList plainCipherList, Utilities utilities) {
     this.threadWatcher = threadWatcher;
     this.queue = queue;
     this.encryptor = encryptor;
     this.plainCipherList = plainCipherList;
+    this.utilities = utilities;
   }
 
   public void run() {
@@ -39,7 +41,7 @@ public class RangeWorker implements Runnable {
 
     while(i >= range.getFrom() && !Thread.currentThread().isInterrupted()) {
 
-      key = encryptor.intToByteArray(key, i);
+      key = utilities.intToByteArray(key, i);
 
       for ( int j = 0 ; j < plainCipherList.getPlainCiphers().size() ; j ++ ) {
 
@@ -48,7 +50,7 @@ public class RangeWorker implements Runnable {
 
             if ( j == plainCipherList.getPlainCiphers().size() - 1 ) {
               System.out.println("Key was found:");
-              encryptor.printByteArray( key );
+              utilities.printByteArray( key );
               threadWatcher.keyDetected();
             }
 

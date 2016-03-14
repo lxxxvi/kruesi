@@ -10,15 +10,17 @@ public class ThreadWatcher {
   Encryptor encryptor;
   PlainCipherList plainCipherList;
   ArrayList<Thread> workerThreads;
+  Utilities utilities;
 
   long startTime;
 
 
-  public ThreadWatcher(int cpus, BlockingQueue<Range> queue, Encryptor encryptor, PlainCipherList plainCipherList) {
+  public ThreadWatcher(int cpus, BlockingQueue<Range> queue, Encryptor encryptor, PlainCipherList plainCipherList, Utilities utilities) {
     this.cpus = cpus;
     this.queue = queue;
     this.encryptor = encryptor;
     this.plainCipherList = plainCipherList;
+    this.utilities = utilities;
   }
 
   public void call() {
@@ -29,7 +31,7 @@ public class ThreadWatcher {
 
     // start multiple threads, each uses the queue for work units (work unit is a 25Mio range in Integer)
     for(int c = 0; c < cpus; c++) {
-      RangeWorker worker = new RangeWorker(this, queue, encryptor, plainCipherList);
+      RangeWorker worker = new RangeWorker(this, queue, encryptor, plainCipherList, utilities);
       Thread t = new Thread(worker);
       workerThreads.add(t);
       t.start();

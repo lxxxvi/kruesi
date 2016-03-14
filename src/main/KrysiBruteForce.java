@@ -85,7 +85,7 @@ public class KrysiBruteForce {
     rangeProducerThread.start();
 
     // We need to handle the worker threads
-    ThreadWatcher threadWatcher = new ThreadWatcher(cpus, queue, e, plainCipherList);
+    ThreadWatcher threadWatcher = new ThreadWatcher(cpus, queue, e, plainCipherList, u);
     threadWatcher.call();
 
     // stop the producer, if still running
