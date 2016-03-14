@@ -176,6 +176,23 @@ public class Utilities {
 		
 	}
 	
+	public byte[] intToByteArray ( byte[] key, int i ) {
+		
+		for ( int k = 0 ; k < 8 ; k++ ) {
+			
+			// http://stackoverflow.com/questions/1735840/how-do-i-split-an-integer-into-2-byte-binary
+			
+			// using Bitmask 0xF to extract 4 bits and 
+			// shift int 4 bits at a time to the left.
+			
+			key[k] = (byte) ( i >> (k * 4) & 0xF );
+		
+		}
+		
+		return key;
+		
+	}
+	
 	public void printByte ( byte b ) {
 		
 		String s1 = String.format("%4s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
@@ -188,8 +205,14 @@ public class Utilities {
 		for ( int i = 0; i < b.length ; i++) {
 		
 			printByte( b[i] );
+			if ( i != b.length - 1) {
+				
+				System.out.print(",");
+				
+			}
 
 		}
+		System.out.println();
 		
 	}
 
