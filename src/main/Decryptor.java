@@ -18,17 +18,24 @@ public class Decryptor {
     public byte[] decryptByteArray( byte[] text, byte[] key) {
         byte[] out = text;
 
-        out = utilies.xOR(out, key, 0);
-        for (int i = 1 ; i < 4; i++ ) {
-            out = utilies.sBoxInv(out);
-            //bitperm gedings
-            out = utilies.xOR( out, key, i );
-        }
-
-        //letzter Aufruf ohne bitperm
-        out = utilies.sBoxInv(out);
-        out = utilies.xOR(out, key, 4);
-
-        return out;
+		// XOR - initial round
+		out = utilies.xOR( out, utilies.roundKey( key, 4 ) );
+		for (int i = 1 ; i < 4; i++ ) {
+		
+			out = utilies.sBoxInv( out );
+			out = utilies.bitPerm( out );
+			
+			// Key needs to be bit-permutated when decrypting
+	        byte[] bitPermKey = utilies.bitPerm( utilies.roundKey( key, 4 - i ) );
+			
+	        out = utilies.xOR( out, bitPermKey );
+		
+		}
+		// Verkürzter letzter Aufruf ohne bitPerm()
+		out = utilies.sBoxInv( out );
+		out = utilies.xOR( out, utilies.roundKey( key, 0 ) );
+		
+		return out;		
     }
+    
 }

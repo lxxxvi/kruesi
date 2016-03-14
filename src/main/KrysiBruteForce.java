@@ -23,8 +23,9 @@ public class KrysiBruteForce {
 	public static void main( String[] args ) {
 
 		Encryptor e = new Encryptor();
+		Decryptor d = new Decryptor();
 
-		// Verification
+		// Verify Encryption
 
 		byte[] plainText = new byte[] { 1, 2, 8, 15}; 
 		byte[] key = new byte[] { 1, 1, 2, 8, 8, 12, 0, 0};
@@ -38,10 +39,22 @@ public class KrysiBruteForce {
 		} else {
 	
 			System.out.println("Encryption FAILS");
-			return;
 			
 		}
+
+		// Verify Decryption
+		
+		byte[] decryptedCipher = d.decryptByteArray(correctCipher, key);
+		if ( java.util.Arrays.equals( decryptedCipher, plainText ) ) {
+			
+			System.out.println("Decryption works.");
+		
+		} else {
 	
+			System.out.println("Decryption FAILS");
+			
+		}
+
 	}
 
 }
