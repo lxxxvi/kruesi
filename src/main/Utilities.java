@@ -28,8 +28,8 @@ public class Utilities {
     }
 
     protected byte[] roundKey ( byte[] key, int round ) {
-    	byte[] roundKey = new byte[4];
 
+    	byte[] roundKey = new byte[4];
         
         // Iterate over byte-array with the corresponding subset from the key, which gets incremented with round.
     	for (int i = 0; i < roundKey.length ; i++ ) {
@@ -196,7 +196,7 @@ public class Utilities {
 	public void printByte ( byte b ) {
 		
 		String s1 = String.format("%4s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
-		System.out.print(s1 + ","); // 1001
+		System.out.print( s1 ); // 1001
 		
 	}
 	
@@ -207,7 +207,7 @@ public class Utilities {
 			printByte( b[i] );
 			if ( i != b.length - 1) {
 				
-				System.out.print(",");
+				System.out.print(" ");
 				
 			}
 
