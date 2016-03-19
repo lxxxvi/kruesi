@@ -27,7 +27,7 @@ public class KrysiBruteForce {
 		Encryptor e = new Encryptor();
 		Decryptor d = new Decryptor();
 
-		// Verify Encryption
+		// 1. Verify Encryption
 
 		byte[] testPlainText = new byte[] { 1, 2, 8, 15 };
 		byte[] testKey = new byte[] { 1, 1, 2, 8, 8, 12, 0, 0 };
@@ -41,10 +41,11 @@ public class KrysiBruteForce {
 		} else {
 
 			System.out.println("Encryption FAILS");
+			System.exit(-1);
 
 		}
 
-		// Verify Decryption
+		// 2. Verify Decryption
 
 		byte[] decryptedCipher = d.decryptByteArray(testCorrectCipher, testKey);
 		if ( java.util.Arrays.equals( decryptedCipher, testPlainText ) ) {
@@ -54,46 +55,45 @@ public class KrysiBruteForce {
 		} else {
 
 			System.out.println("Decryption FAILS");
+			System.exit(-1);
 
 		}
 
-		// Decrypting the ciphertext
 
-		byte[] workingKey = new byte[]{3, 10, 9, 4, 13, 6, 3, 15}; // Working Key: 0011 1010 1001 0100 1101 0110 0011 1111
-		byte[] cipherText = new byte[] { 5, 10, 3, 15 };
+		// 3. Multithreaded Brute Force Attack
+
+		// Put the Plain/Cipher pairs into an object
+		PlainCipherList plainCipherList = new PlainCipherList();
+
+		// work on all CPUs available(Threads)
+		int cpus = Runtime.getRuntime().availableProcessors();
+		System.out.println("Running on " + cpus + " CPUs");
+
+		// Using BlockingQueue
+		BlockingQueue<Range> queue = new LinkedBlockingQueue<Range>();
+
+		// RangeProducer Splits the Integer MIN - MAX into equal slices (each CPU gets one)
+		RangeProducer rangeProducer = new RangeProducer(queue, cpus);
+		Thread rangeProducerThread = new Thread(rangeProducer);
+		rangeProducerThread.start();
+
+		// We need to handle the worker threads
+		ThreadWatcher threadWatcher = new ThreadWatcher(cpus, queue, e, plainCipherList, u);
+		byte[] workingKey = threadWatcher.call();
+
+		// stop the producer, if still running
+		rangeProducerThread.interrupt();
+
+		// 4. Decrypting the ciphertext
+
+		byte[] cipherText = new byte[] { 5, 10, 3, 15 }; // 0101 1010 0011 1111
 		byte[] plainText = d.decryptByteArray(cipherText, workingKey);
 		System.out.println("Decrypted Text:");
 		u.printByteArray(plainText);
 
-
-		// Brute Force Attack
-
-
-    // Put the Plain/Cipher pairs into an object
-    PlainCipherList plainCipherList = new PlainCipherList();
-
-    // work on all CPUs available(Threads)
-    int cpus = Runtime.getRuntime().availableProcessors();
-    System.out.println("Running on " + cpus + " CPUs");
-
-    // Using BlockingQueue
-    BlockingQueue<Range> queue = new LinkedBlockingQueue<Range>();
-
-    // RangeProducer Splits the Integer MIN - MAX into equal slices (each CPU gets one)
-    RangeProducer rangeProducer = new RangeProducer(queue, cpus);
-    Thread rangeProducerThread = new Thread(rangeProducer);
-    rangeProducerThread.start();
-
-    // We need to handle the worker threads
-    ThreadWatcher threadWatcher = new ThreadWatcher(cpus, queue, e, plainCipherList, u);
-    threadWatcher.call();
-
-    // stop the producer, if still running
-    rangeProducerThread.interrupt();
-
-    System.out.println("DONE!");
+		System.out.println("DONE!");
 
 
-  }
+	}
 
 }
